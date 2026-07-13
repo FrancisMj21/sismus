@@ -1,0 +1,30 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('horarios_generales', function (Blueprint $table) {
+            $table->foreign(['academia_id'], 'horarios_generales_ibfk_1')->references(['id'])->on('academias')->onUpdate('no action')->onDelete('no action');
+            $table->foreign(['especialidad_id'], 'horarios_generales_ibfk_2')->references(['id'])->on('especialidades')->onUpdate('no action')->onDelete('no action');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('horarios_generales', function (Blueprint $table) {
+            $table->dropForeign('horarios_generales_ibfk_1');
+            $table->dropForeign('horarios_generales_ibfk_2');
+        });
+    }
+};
