@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('academia_id')->index('fk_users_academia');
             $table->string('name', 150);
             $table->string('email', 150)->unique('email');
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('telefono', 30)->nullable();
             $table->boolean('activo')->nullable()->default(true);
