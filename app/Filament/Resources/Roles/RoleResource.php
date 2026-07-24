@@ -30,6 +30,7 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Unique;
 use Override;
 use Illuminate\Database\Eloquent\Builder;
+use App\Support\AuthorizationService;
 
 class RoleResource extends Resource
 {
@@ -90,13 +91,10 @@ class RoleResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        $query = parent::getEloquentQuery();
-
-        if (auth()->user()->hasRole('Superadmin')) {
-            return $query;
-        }
-
-        return $query->where('name', '!=', 'Superadmin');
+        return AuthorizationService::scopeRoles(
+            parent::getEloquentQuery(),
+            auth()->user()
+        );
     }
 
     #[Override]
@@ -158,6 +156,7 @@ class RoleResource extends Resource
             'edit' => EditRole::route('/{record}/edit'),
         ];
     }
+
 
     #[Override]
     public static function getModel(): string
