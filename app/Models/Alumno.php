@@ -42,6 +42,7 @@ class Alumno extends Model
 	protected $table = 'alumnos';
 
 	protected $casts = [
+		'user_id' => 'integer',
 		'academia_id' => 'int',
 		'fecha_nacimiento' => 'datetime',
 		'fecha_registro' => 'datetime',
@@ -49,6 +50,7 @@ class Alumno extends Model
 	];
 
 	protected $fillable = [
+		'user_id',
 		'academia_id',
 		'codigo',
 		'dni',
@@ -64,6 +66,11 @@ class Alumno extends Model
 		'observaciones',
 		'activo'
 	];
+
+	public function user()
+	{
+		return $this->belongsTo(User::class);
+	}
 
 	public function academia()
 	{

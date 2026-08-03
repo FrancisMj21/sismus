@@ -68,6 +68,11 @@ class User extends Authenticatable
 		'remember_token'
 	];
 
+
+	public function alumno()
+	{
+		return $this->hasOne(Alumno::class);
+	}
 	public function academia()
 	{
 		return $this->belongsTo(Academia::class);
